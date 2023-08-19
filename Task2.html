@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+</head>
+<style>
+    body {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        animation-name: example;
+        animation-duration: 6s;
+        animation-iteration-count: infinite;
+    }
+
+    @keyframes example {
+        0% {
+            background: linear-gradient(to right, red, rgb(22, 105, 22));
+        }
+
+        25% {
+            background: linear-gradient(to right, rgb(8, 27, 123), rgb(88, 89, 88));
+        }
+
+        50% {
+            background: linear-gradient(to right, rgb(4, 254, 29), rgb(255, 255, 255));
+        }
+
+        75% {
+            background: linear-gradient(to right, rgb(224, 123, 34), rgb(40, 80, 240));
+        }
+
+        100% {
+            background: linear-gradient(to right, rgb(7, 205, 245), rgb(0, 2, 0));
+        }
+    }
+
+    #dgClock {
+        font-family: system-ui;
+        font-weight: bold;
+        font-size: 4rem;
+        text-align: center;
+        margin: auto;
+        padding: 3rem;
+        display: block;
+        color: black;
+        border: .5rem solid black;
+        width: 50%;
+        border-radius: 10rem;
+        align-self: center;
+        box-shadow: 15px 10px 20px black;
+    }
+
+    h3 {
+        text-align: center;
+        width: 50%;
+        display: block;
+        margin: auto;
+        border-radius: 10rem;
+        padding: 2rem;
+        font-size: 3rem;
+    }
+</style>
+
+<body>
+    <div id="dgClock" onload="currentTime()"></div>
+    <div>
+        <h3 id="grt"></h3>
+    </div>
+</body>
+<script>
+    function currentTime() {
+        let currDate = new Date();
+        let currHour = currDate.getHours();
+        let currMin = currDate.getMinutes();
+        let currSec = currDate.getSeconds();
+        let aTOp = "AM";
+
+        currHour = (currHour < 10) ? "0" + currHour : currHour;
+        currMin = (currMin < 10) ? "0" + currMin : currMin;
+        currSec = (currSec < 10) ? "0" + currSec : currSec;
+
+        if (currHour === 0) {
+            currHour = 12;
+        }
+
+        if (currHour > 4 && currHour < 12) {
+            document.getElementById("grt").innerText = "Good Morning!";
+            document.getElementById("dgClock").style.backgroundImage = "url('https://www.funkymorning.com/wp-content/uploads/2022/04/Nice-Good-Morning-Images-to-bid-a-happy-morning.jpg')";
+            document.getElementById("grt").style.background = "linear-gradient(to right, lightblue, orangered)";
+        }
+        else if (currHour >= 12 && currHour < 20) {
+            if (currHour == 12) {
+                aTOp = "PM";
+            }
+            else {
+                currHour = currHour - 12;
+                aTOp = "PM";
+            }
+            document.getElementById("grt").innerText = "Good Afternoon!";
+            document.getElementById("dgClock").style.backgroundImage = "url('https://images.unsplash.com/photo-1619589032701-b20a3e33fde9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzR8fGFmdGVybm9vbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60')";
+            document.getElementById("grt").style.background = "linear-gradient(to right, orangered, yellow)";
+        }
+        else {
+            currHour = currHour - 12;
+            aTOp = "PM";
+            document.getElementById("grt").innerText = "Good Night!";
+            document.getElementById("dgClock").style.backgroundImage = "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDQeqoDXBRR9t7q2eQx7ZHnlZRWWjezwO57w&usqp=CAU')";
+            document.getElementById("grt").style.background = "linear-gradient(to right,black,lightblue)";
+        }
+
+        let Time = currHour + ":" + currMin + ":" + currSec + " " + aTOp;
+
+        document.getElementById("dgClock").innerText = Time;
+
+        let hms = setTimeout(function () {
+            currentTime()
+        }, 1000);
+    }
+    currentTime();
+
+</script>
+
+</html>
